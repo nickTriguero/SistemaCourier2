@@ -1,18 +1,20 @@
 <%-- 
+    Página sin usar - Borrable
     Document   : dashboard
     Created on : 20 nov 2025, 12:53:54 p. m.
     Author     : amy_t
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
+<%--
     // 1. SEGURIDAD: Verificar si hay alguien logueado
     // Si la sesión es nula o no hay usuario, lo pateamos fuera
     if (session.getAttribute("usuario") == null) {
         response.sendRedirect("index.jsp");
         return;
     }
-%>
+--%>
 <!DOCTYPE html>
 <html>
 <head>

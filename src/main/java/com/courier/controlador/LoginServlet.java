@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 // Esta línea define la URL a la que llamará el formulario
-@WebServlet("/LoginServlet")
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     @Override
@@ -39,10 +39,10 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("rol", rol);
                 
                 // Lo enviamos al menú principal
-                response.sendRedirect("dashboard.jsp"); 
+                response.sendRedirect("index.jsp"); 
             } else {
                 // Login fallido: Lo devolvemos con error
-                response.sendRedirect("index.jsp?error=true");
+                response.sendRedirect(request.getContextPath() + "/Utilidad/login.jsp?error=true");
             }
         } 
         else if ("recuperar".equals(accion)) {

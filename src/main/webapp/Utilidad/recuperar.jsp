@@ -28,7 +28,7 @@
             <div style="color: red; text-align: center; margin-bottom: 10px;">El correo no existe en el sistema.</div>
         <% } %>
 
-        <form action="LoginServlet" method="POST">
+        <form action="<%= request.getContextPath() %>/LoginServlet" method="POST">
             <label>Tu Correo:</label>
             <input type="email" name="email" required>
             
@@ -38,7 +38,7 @@
             <button type="submit" name="accion" value="recuperar">Cambiar Contraseña</button>
         </form>
         
-        <a href="index.jsp" class="back">← Volver al Login</a>
+        <a href="login.jsp" class="back">← Volver al Login</a>
     </div>
 </body>
 </html>
