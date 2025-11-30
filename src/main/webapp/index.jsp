@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Mi Proyecto</title>
+        <title>Sistema Courier</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <style> body {
             padding-top: 70px;
@@ -32,7 +32,7 @@
                 </ul>
             </div>
         </div>
-
-        <%--  <jsp:include page="/Utilidad/header.jsp" /> --%>
+        
+        <jsp:include page="/Utilidad/footer.jsp" />
     </body>
 </html> 
