@@ -5,6 +5,7 @@
 package com.courier.controlador;
 
 import com.courier.dao.UsuarioDAO;
+import com.courier.modelo.usuarios;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,7 +21,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // Recibimos qué acción quiere hacer el usuario (ingresar o recuperar)
         String accion = request.getParameter("accion");
         UsuarioDAO dao = new UsuarioDAO();
@@ -29,31 +30,36 @@ public class LoginServlet extends HttpServlet {
             // 1. Lógica de Login
             String email = request.getParameter("email");
             String pass = request.getParameter("password");
-            
-            String rol = dao.validarUsuario(email, pass);
 
-            if (rol != null) {
+            usuarios Usuario = dao.validarUsuario(email, pass);
+
+            if (Usuario != null) {
                 // Login correcto: Creamos una sesión para recordar al usuario
                 HttpSession session = request.getSession();
-                session.setAttribute("usuario", email);
-                session.setAttribute("rol", rol);
-                
+                session.setAttribute("usuario", Usuario.getNombre_completo());
+                session.setAttribute("email", Usuario.getEmail());
+                session.setAttribute("rol", Usuario.getRol());
+
                 // Lo enviamos al menú principal
-                response.sendRedirect("index.jsp"); 
+                response.sendRedirect("index.jsp");
             } else {
                 // Login fallido: Lo devolvemos con error
                 response.sendRedirect(request.getContextPath() + "/Utilidad/login.jsp?error=true");
             }
-        } 
-        else if ("recuperar".equals(accion)) {
+        } else if ("recuperar".equals(accion)) {
             // 2. Lógica de Recuperar Contraseña
             String email = request.getParameter("email");
             String nuevaPass = request.getParameter("newPassword");
-            
+
             boolean exito = dao.cambiarPassword(email, nuevaPass);
-            
-            if(exito){
-                response.sendRedirect("index.jsp?mensaje=clave_cambiada");
+
+            if (exito) {
+                //Invalidar sesión actual (por seguridad)
+                HttpSession session = request.getSession(false);
+                if (session != null) {
+                    session.invalidate();
+                }
+                response.sendRedirect(request.getContextPath() + "/Utilidad/login.jsp?mensaje=cambiada");
             } else {
                 response.sendRedirect("recuperar.jsp?error=true");
             }
