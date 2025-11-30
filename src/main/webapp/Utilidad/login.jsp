@@ -24,6 +24,7 @@
     </style>
 </head>
 <body>
+    
     <div class="card">
         <h2>📦 Sistema Courier</h2>  <%--Nombre Pendiente--%>
         
@@ -47,7 +48,8 @@
         </form>
         
         <div class="links">
-            <a href="recuperar.jsp">¿Olvidaste tu contraseña?</a>
+            <a href="recuperar.jsp">¿Olvidaste tu contraseña?</a><br>
+            <a href="<%= request.getContextPath()%>\index.jsp">Home</a>
         </div>
     </div>
 </body>
