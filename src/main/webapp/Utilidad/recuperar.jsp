@@ -20,6 +20,13 @@
     </style>
 </head>
 <body>
+    <%
+    String origen = request.getParameter("from");
+    String volverUrl = (origen != null && origen.equals("perfil")) 
+        ? request.getContextPath() + "/perfil.jsp" 
+        : request.getContextPath() + "/Utilidad/login.jsp";
+    %>
+    
     <div class="card">
         <h2>🔐 Restablecer Clave</h2>
         <p style="text-align: center; color: #666; font-size: 0.9rem;">Simulación: Ingresa tu correo y define una nueva clave directamente.</p>
@@ -38,7 +45,7 @@
             <button type="submit" name="accion" value="recuperar">Cambiar Contraseña</button>
         </form>
         
-        <a href="login.jsp" class="back">← Volver al Login</a>
+        <a href="<%= volverUrl %>" class="back">← Regresar</a>
     </div>
 </body>
 </html>
