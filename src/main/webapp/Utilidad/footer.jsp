@@ -36,7 +36,6 @@
                         <ul class="list-unstyled">
                             <li><a href="<%= request.getContextPath()%>/index.jsp" class="text-white text-decoration-none opacity-75 hover-opacity-100">Inicio</a></li>
                             <li><a href="<%= request.getContextPath()%>/mis_pedidos.jsp" class="text-white text-decoration-none opacity-75 hover-opacity-100">Mis Envíos</a></li>
-                            <li><a href="#" class="text-white text-decoration-none opacity-75 hover-opacity-100">Seguimiento</a></li>
                             <li><a href="#" class="text-white text-decoration-none opacity-75 hover-opacity-100">Tarifas</a></li>
                         </ul>
                     </div>
@@ -59,8 +58,7 @@
 
                 <div class="text-center pt-3">
                     <small class="opacity-75">
-                        © 2025 Sistema Courier • Todos los derechos reservados • 
-                        Desarrollado con sangre, sudor y muchas puteadas exitosas
+                        © 2025 Sistema Courier • Todos los derechos reservados
                     </small>
                 </div>
             </div>

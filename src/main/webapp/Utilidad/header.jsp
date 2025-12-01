@@ -37,6 +37,7 @@
                         <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath()%>/index.jsp">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Productos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                        <li class="nav-item"> <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modalConsultarEnvio" style="cursor: pointer;">Consultar Envío</a></li>
                     </ul>
 
                     <% if (nombreUsuario != null) {%>
@@ -65,7 +66,7 @@
                                 <% } else if ("cliente".equalsIgnoreCase(rol)) { %>
                             <!--<li><a class="dropdown-item" href="#">Historial de Envíos</a></li> Agregar si hay una opción para agregar
                             <li><hr class="dropdown-divider"></li>-->
-                                <% } else if ("courier".equalsIgnoreCase(rol)) { %>
+                            <% } else if ("courier".equalsIgnoreCase(rol)) { %>
                             <!--Cambiar, borrar o mantener según lo que se quiera agregar-->
                             <li><a class="dropdown-item" href="#">Rutas Asignadas</a></li>
                             <li><a class="dropdown-item" href="#">Entregas Pendientes</a></li>
@@ -83,3 +84,37 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
+
+<!-- ======================MODAL Consultar Envío sin login====================== -->
+<div class="modal fade" id="modalConsultarEnvio" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Consulta tu envío</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="<%= request.getContextPath()%>/consultaEnvio.jsp" method="get">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nGuia" class="form-label fw-bold">Número de Guía</label>
+                        <input type="text" class="form-control form-control-lg text-center" 
+                               id="nGuia" name="guia" placeholder="Ej: Cl999" 
+                               maxlength="20" required autocomplete="off">
+                        <div class="form-text">Ingresa el número de guía del envío que desea consultar.</div>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 0.35rem;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary btn-lg px-4">Buscar Envío</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .navbar .btn-seguimiento {
+        font-size: 0.95rem;
+    }
+</style>
