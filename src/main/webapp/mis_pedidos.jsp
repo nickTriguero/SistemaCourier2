@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Mis Envíos</title>
+        <title>Mis Pedidos</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
@@ -32,7 +32,7 @@
          <jsp:include page="/Utilidad/header.jsp" />
         
         <div class="container mt-5">
-            <h2 class="mb-4">Mis Envíos</h2>
+            <h2 class="mb-4">Mis Pedidos</h2>
             <div class="card shadow-lg">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -80,7 +80,7 @@
                                                 String fechaCreacionStr = fechaCreacion != null ? sdf.format(fechaCreacion) : "—";
 
                                                 Date fechaEntrega = rs.getDate("fecha_entregado");
-                                                String fechaEntregaStr = fechaEntrega != null ? sdf.format(fechaEntrega) : "—";
+                                                String fechaEntregaStr = fechaEntrega != null ? sdf.format(fechaEntrega) : "Sin entregar";
                                 %>
                                 <tr style="text-align: center;">
                                     <td><strong><%= rs.getInt("id_envio")%></strong></td>
@@ -94,7 +94,7 @@
                                     <td><%= fechaEntregaStr%></td>
                                     <td>
                                         <span class="badge bg-<%="Express".equals(rs.getString("servicio")) ? "success"
-                                                : "Standard".equals(rs.getString("servicio")) ? "secondary" : "info"%>">
+                                                : "Standard".equals(rs.getString("servicio")) ? "warning" : "info"%>">
                                         <%= rs.getString("servicio")%></span> </td>
                                     <td>
                                         <span class="badge bg-<%="Entregado".equals(rs.getString("estado")) ? "success"
