@@ -13,7 +13,7 @@ public class ConexionDB {
     // Configuración de la base de datos
     private static final String URL = "jdbc:postgresql://localhost:5432/courier_db"; //Si no funciona cambiando la db, crea otra con el mismo nombre
     private static final String USER = "postgres"; 
-    private static final String PASS = "12345"; //Cambiarla si tienes otra.
+    private static final String PASS = "1234"; //Cambiarla si tienes otra.
 
     // Método para obtener la conexión
     public static Connection getConexion() {

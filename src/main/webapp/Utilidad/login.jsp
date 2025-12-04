@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login - Courier System</title>
+    <title>Login - GIGICourier System</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #e9ecef; margin: 0; }
         .card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; }
@@ -26,7 +26,7 @@
 <body>
     
     <div class="card">
-        <h2>📦 Sistema Courier</h2>  <%--Nombre Pendiente--%>
+        <h2>📦 GIGICOURIER </h2>  <%--Nombre Pendiente--%>
         
         <% if (request.getParameter("error") != null) { %>
             <div class="alert">Usuario o contraseña incorrectos.</div>

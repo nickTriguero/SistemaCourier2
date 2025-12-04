@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.courier.controlador;
 
 import com.courier.dao.UsuarioDAO;
@@ -14,47 +10,72 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-// Esta línea define la URL a la que llamará el formulario
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
+
+    // 1. Agregamos doGet para que funcione el botón "Cerrar Sesión" (Logout)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+        if ("Logout".equals(accion)) {
+            HttpSession session = request.getSession();
+            session.invalidate(); // Destruye la sesión
+            response.sendRedirect("index.jsp"); // Manda al inicio
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Recibimos qué acción quiere hacer el usuario (ingresar o recuperar)
         String accion = request.getParameter("accion");
         UsuarioDAO dao = new UsuarioDAO();
 
         if ("ingresar".equals(accion)) {
-            // 1. Lógica de Login
+            // Recibimos los datos del formulario (names: email, password)
             String email = request.getParameter("email");
             String pass = request.getParameter("password");
 
             usuarios Usuario = dao.validarUsuario(email, pass);
 
             if (Usuario != null) {
-                // Login correcto: Creamos una sesión para recordar al usuario
+                // Login correcto
                 HttpSession session = request.getSession();
-                session.setAttribute("usuario", Usuario.getNombre_completo());
-                session.setAttribute("email", Usuario.getEmail());
+                
+                // --- CAMBIO IMPORTANTE ---
+                // Guardamos el OBJETO COMPLETO 'Usuario', no solo el nombre string.
+                // Esto es vital para que el dashboard pueda leer info del usuario.
+                session.setAttribute("usuario", Usuario); 
                 session.setAttribute("rol", Usuario.getRol());
 
-                // Lo enviamos al menú principal
-                response.sendRedirect("index.jsp");
+                // --- LÓGICA DE REDIRECCIÓN POR ROL ---
+                if (Usuario.getRol().equalsIgnoreCase("admin")) {
+                    response.sendRedirect("dashboard.jsp");
+                    
+                } else if (Usuario.getRol().equalsIgnoreCase("courier")) {
+                    // ¡AQUÍ ESTÁ EL CAMBIO! Lo mandamos a pedir sus entregas
+                    response.sendRedirect("EnvioServlet?accion=mis_entregas");
+                    
+                } else {
+                    // Clientes
+                    response.sendRedirect("index.jsp");
+                }
+                
             } else {
                 // Login fallido: Lo devolvemos con error
+                // Nota: Asumo que tu login.jsp está en la carpeta Utilidad según tu código anterior
                 response.sendRedirect(request.getContextPath() + "/Utilidad/login.jsp?error=true");
             }
+            
         } else if ("recuperar".equals(accion)) {
-            // 2. Lógica de Recuperar Contraseña
+            // Lógica de Recuperar Contraseña
             String email = request.getParameter("email");
             String nuevaPass = request.getParameter("newPassword");
 
             boolean exito = dao.cambiarPassword(email, nuevaPass);
 
             if (exito) {
-                //Invalidar sesión actual (por seguridad)
                 HttpSession session = request.getSession(false);
                 if (session != null) {
                     session.invalidate();

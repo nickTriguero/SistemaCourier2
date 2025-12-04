@@ -18,11 +18,19 @@
         </style>
     </head>
     <body>
-        <%
-            String nombreUsuario = (String) session.getAttribute("usuario");
-            String rol = (String) session.getAttribute("rol");
-        %>
-
+        <%@page import="com.courier.modelo.usuarios"%> <%
+        // CORRECCIÓN: Recuperamos el objeto 'usuarios', NO un String
+        usuarios userHeader = (usuarios) session.getAttribute("usuario");
+        
+        String nombreUsuario = "";
+        String rol = "";
+        
+        if (userHeader != null) {
+            // Si hay alguien logueado, sacamos sus datos del objeto
+            nombreUsuario = userHeader.getNombre_completo();
+            rol = userHeader.getRol();
+        }
+    %>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="<%= request.getContextPath()%>/index.jsp">

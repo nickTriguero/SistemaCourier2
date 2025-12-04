@@ -15,6 +15,7 @@ public class usuarios {
     private String rol;
     private Date fecha_creacion;
     private String guia;
+    private boolean activo;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -36,5 +37,10 @@ public class usuarios {
 
     public String getGuia() { return guia; }
     public void setGuia(String guia) { this.guia = guia; }
+    
+    public boolean isActivo() {
+        return activo; }
 
+    public void setActivo(boolean activo) {
+        this.activo = activo; }
 }
